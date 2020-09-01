@@ -1,12 +1,45 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
+import Logo from './assets/publicalo.png'
+import axios from 'axios'
 
-const MainMenu = () => (
-    <nav className="navbar navbar-dark bg-dark">
-        <a className="navbar-brand">TrelloClone</a>       
-        <form className="form-inline">
+const MainMenu = () => {
+    const [weather, setWeather] = useState('');
+    const [country, setCountry] = useState('');
+    const [image, setImage] = useState('');
 
-        </form>
-    </nav>
-)
+
+    const getIpAddress = () => {
+        const publicIp = require('public-ip');
+        return publicIp.v4();
+    }
+
+    const getWeather = async () => {
+        const resIp = await getIpAddress();
+        axios.get(`http://api.weatherapi.com/v1/current.json?key=e469d06fd52f4c449a234220200109&q=${resIp}`)
+            .then(response => {
+                const res = response.data;
+                setCountry(res.location.country)
+                setWeather(res.current.temp_c)
+                setImage(res.current.condition.icon)
+            });
+    }
+
+    useEffect(() => {
+        getWeather();
+    }, [])
+
+    return (
+        <nav className="navbar navbar-dark bg-primary">
+            <a className="navbar-brand">                      
+            <img src={Logo} width="30" height="30" class="d-inline-block align-top m-1" alt="logoTrello" loading="lazy"/>
+                TrelloClone                
+            </a>
+            <form className="form-inline">
+                <h6 className="text-white">{country}, {weather}°C </h6>
+                <img src={image} alt={country} />
+            </form>
+        </nav>
+    )
+}
 
 export default MainMenu

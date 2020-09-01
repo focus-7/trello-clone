@@ -14,6 +14,12 @@ const Login = ({ history }) => {
         setEmail(value);
     };
 
+    const onChangePassword = (event) => {
+        const value = event.target.value;
+        setPassword(value);
+    }
+
+
     const onClickSigIn = async () => {
         try {
             if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
@@ -42,6 +48,8 @@ const Login = ({ history }) => {
         return <div>Mensaje de Error</div>;
     };
 
+
+
     return (
         <>
             <div className="modal-dialog modal-dialog-centered">
@@ -52,31 +60,14 @@ const Login = ({ history }) => {
                     <div className="modal-body">
                         <form>
                             <div className="form-group">
-                                Correo electrónico
-                                <input type="email" value={email} onChange={onChangeEmail} />
-                                <small className="form-text text-muted">
-                                    Nunca compartiremos su correo electrónico con nadie más.
-                                </small>
+                                <input type="email" className="form-control" value={email} onChange={onChangeEmail} placeholder="Introduzca el correo electrónico" />
                             </div>
                             <div className="form-group">
-                                Contraseña
-                            <input
-                                    type="password"
-                                    value={password}
-                                    onChange={onChangePassword}
-                                />
+                                <input type="password" className="form-control" value={password} onChange={onChangePassword} placeholder="Introduzca la contraseña" />
                             </div>
-                            <div className="form-group form-check">
-                                <input type="checkbox" className="form-check-input" />
-                                  Recordarme
-                            </div>
-                            <button
-                                type="button"
-                                onClick={onClickSigIn}
-                                className="btn btn-primary">
-                                Ingresar
-                            </button>
+                            <button type="button" className="btn btn-primary" onClick={onClickSigIn}>Iniciar sesión</button>
                         </form>
+
                     </div>
                 </div>
             </div>
