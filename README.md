@@ -1,3 +1,13 @@
+## React Firebase
+Aplicación construido con React & Firebase
+
+### Usuarios de prueba
+Correo: usuario_prueba@hotmail.com
+Clave: 123456
+
+Correo: usuario_trello@gmail.com
+Clave: 123456
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
