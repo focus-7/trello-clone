@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Home from './Home';
-import Login from './Login';
+import Home from './components/pages/Home';
+import Login from './components/pages/Login';
 import ProtectedRoute from './data/router/protected_route';
-import MainMenu from './MainMenu';
+import MainMenu from './components/MainMenu';
 
 const App = () => (
   <Router> 

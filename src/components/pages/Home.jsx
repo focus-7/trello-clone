@@ -1,18 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuid } from 'uuid';
-import List from './components/List/List';
-import store from './utils/store';
-import StoreApi from './utils/storeApi';
-import InputContainer from './components/Input/InputContainer';
+import List from '../List/List';
+import store from '../../utils/store';
+import StoreApi from '../../utils/storeApi';
+import InputContainer from '../Input/InputContainer';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
+import { createCard, addCard, updateTitleCard, obtainCards } from '../use_cases/userCard';
 
 const Home = () => {
     const [data, setData] = useState(store);
     const [open, setOpen] = useState(false);
 
     const addMoreCard = (title, listId) => {
-        console.log(title, listId);
-
         const newCardId = uuid();
         const newCard = {
             id: newCardId,
@@ -30,6 +29,7 @@ const Home = () => {
             },
         };
         setData(newState);
+        addCard(list)
     };
 
     const addMoreList = (title) => {
@@ -47,6 +47,7 @@ const Home = () => {
             },
         };
         setData(newState);
+        createCard(newList);
     };
 
     const updateListTitle = (title, listId) => {
@@ -61,11 +62,11 @@ const Home = () => {
             },
         };
         setData(newState);
+        updateTitleCard(list);
     };
 
     const onDragEnd = (result) => {
         const { destination, source, draggableId, type } = result;
-        console.log('destination', destination, 'source', source, draggableId);
 
         if (!destination) {
             return;
@@ -83,22 +84,21 @@ const Home = () => {
             (card) => card.id === draggableId
         )[0];
 
+        const newState = {};
+
+        sourceList.cards.splice(source.index, 1);
+        destinationList.cards.splice(destination.index, 0, draggingCard);
+
         if (source.droppableId === destination.droppableId) {
-            sourceList.cards.splice(source.index, 1);
-            destinationList.cards.splice(destination.index, 0, draggingCard);
-            const newSate = {
+            newState = {
                 ...data,
                 lists: {
                     ...data.lists,
                     [sourceList.id]: destinationList,
                 },
             };
-            setData(newSate);
         } else {
-            sourceList.cards.splice(source.index, 1);
-            destinationList.cards.splice(destination.index, 0, draggingCard);
-
-            const newState = {
+            newState = {
                 ...data,
                 lists: {
                     ...data.lists,
@@ -106,9 +106,17 @@ const Home = () => {
                     [destinationList.id]: destinationList,
                 },
             };
-            setData(newState);
         }
+        setData(newState);
     };
+
+    useEffect(() => {
+        async function fetchData() {
+            const res = await obtainCards();
+            setData(res)
+        }
+        fetchData()
+    }, [])
 
 
     return (
@@ -120,8 +128,7 @@ const Home = () => {
                             <div
                                 className="d-inline-flex p-2 bd-highlight"
                                 ref={provided.innerRef}
-                                {...provided.droppableProps}
-                            >
+                                {...provided.droppableProps}>
                                 {data.listIds.map((listId, index) => {
                                     const list = data.lists[listId];
                                     return <List list={list} key={listId} index={index} />;

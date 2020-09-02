@@ -18,7 +18,7 @@ const data = {
     'list-1': {
       id: 'list-1',
       title: 'Cosas que hacer',
-      cards,
+      cards: [],
     },
     'list-2': {
       id: 'list-2',

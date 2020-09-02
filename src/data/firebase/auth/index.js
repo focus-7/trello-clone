@@ -7,7 +7,7 @@ const onAuthStateChanged = (callback) =>
 
 const currentUser = () => {
   const user = firebaseAuth.currentUser;
-  return user ? user != null : ""
+  return user ? user.uid : ""
 };
 
 const signInWithEmailAndPasswordService = (email, password) => {

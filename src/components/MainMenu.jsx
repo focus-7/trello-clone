@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import Logo from './assets/publicalo.png'
+import Logo from '../assets/publicalo.png'
 import axios from 'axios'
 
 const MainMenu = () => {

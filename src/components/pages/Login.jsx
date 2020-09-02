@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "./data/firebase/auth/index";
-import Portal from "./data/portal/Portal";
+import { signInWithEmailAndPassword } from "../../data/firebase/auth/index";
 
 const Login = ({ history }) => {
     const [email, setEmail] = useState("");
