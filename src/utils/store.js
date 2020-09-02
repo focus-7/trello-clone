@@ -1,18 +1,3 @@
-const cards = [
-  {
-    id: 'card-1',
-    title: 'Tarea 1',
-  },
-  {
-    id: 'card-2',
-    title: 'Tarea 2',
-  },
-  {
-    id: 'card-3',
-    title: 'Tarea 3',
-  },
-];
-
 const data = {
   lists: {
     'list-1': {

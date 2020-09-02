@@ -8,29 +8,24 @@ const MainMenu = () => {
     const [country, setCountry] = useState('');
     const [image, setImage] = useState('');
 
-
-    const getIpAddress = () => {       
-        return publicIp.v4();
-    }
-
-    const getWeather = async () => {
-        const resIp = await getIpAddress();
-        axios.get(`http://api.weatherapi.com/v1/current.json?key=e469d06fd52f4c449a234220200109&q=${resIp}`)
-            .then(response => {
-                const res = response.data;
-                setCountry(res.location.country)
-                setWeather(res.current.temp_c)
-                setImage(res.current.condition.icon)
-            });
-    }
-
+   
     useEffect(() => {
+        const getWeather = async () => {
+            const resIp = await publicIp.v4();
+            axios.get(`http://api.weatherapi.com/v1/current.json?key=e469d06fd52f4c449a234220200109&q=${resIp}`)
+                .then(response => {
+                    const res = response.data;
+                    setCountry(res.location.country)
+                    setWeather(res.current.temp_c)
+                    setImage(res.current.condition.icon)
+                });
+        }
         getWeather();
-    }, [])
+    }, [publicIp])
 
     return (
         <nav className="navbar navbar-dark bg-primary">
-            <a className="navbar-brand">                      
+            <a className="navbar-brand" href='/'>
             <img src={Logo} width="30" height="30" className="d-inline-block align-top m-1" alt="logoTrello" loading="lazy"/>
                 TrelloClone                
             </a>

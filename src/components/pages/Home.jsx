@@ -9,7 +9,6 @@ import { createCard, addCard, updateTitleCard, obtainCards } from '../use_cases/
 
 const Home = () => {
     const [data, setData] = useState(store);
-    const [open, setOpen] = useState(false);
 
     const addMoreCard = (title, listId) => {
         const newCardId = uuid();
@@ -84,7 +83,7 @@ const Home = () => {
             (card) => card.id === draggableId
         )[0];
 
-        const newState = {};
+        let newState = {};
 
         sourceList.cards.splice(source.index, 1);
         destinationList.cards.splice(destination.index, 0, draggingCard);
@@ -112,8 +111,10 @@ const Home = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const res = await obtainCards();
-            setData(res)
+            const res = await obtainCards();            
+            if (Object.keys(res).length !== 0) {
+                setData(res)
+            }
         }
         fetchData()
     }, [])
@@ -129,10 +130,10 @@ const Home = () => {
                                 className="d-inline-flex p-2 bd-highlight"
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}>
-                                {data.listIds.map((listId, index) => {
+                                {data.listIds ? data.listIds.map((listId, index) => {
                                     const list = data.lists[listId];
                                     return <List list={list} key={listId} index={index} />;
-                                })}
+                                }) : null}
                                 <InputContainer type="list" />
                                 {provided.placeholder}
                             </div>

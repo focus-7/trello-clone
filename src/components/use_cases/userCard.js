@@ -36,12 +36,16 @@ const obtainCards = async () => {
     aux.push(data);
     listIds.push(user.data().id);
   });
+
   let result = {};
-
   let lists = {};
-  lists = Object.assign(...aux);
 
-  result = { lists, listIds };
+  try {
+    lists = Object.assign(...aux);
+
+    result = { lists, listIds };
+  } catch (error) {}
+
   return result;
 };
 

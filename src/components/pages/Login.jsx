@@ -21,7 +21,7 @@ const Login = ({ history }) => {
 
     const onClickSigIn = async () => {
         try {
-            if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
+            if (/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
                 const result = await signInWithEmailAndPassword(email, password);
                 if (result) history.push("/");
             } else {
@@ -40,15 +40,6 @@ const Login = ({ history }) => {
         }
     };
 
-    const PopUpMessageError = ({ object, hook }) => {
-        const { message } = object;
-        const [dissmiss, setDissmiss] = hook;
-
-        return <div>Mensaje de Error</div>;
-    };
-
-
-
     return (
         <>
             <div className="modal-dialog modal-dialog-centered">
@@ -66,7 +57,9 @@ const Login = ({ history }) => {
                             </div>
                             <button type="button" className="btn btn-primary" onClick={onClickSigIn}>Iniciar sesión</button>
                         </form>
-
+                        {
+                            showError ? (<small className="text-danger">{messageError}</small>) : null
+                        }
                     </div>
                 </div>
             </div>
