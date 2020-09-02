@@ -3,13 +3,13 @@ import Logo from './assets/publicalo.png'
 import axios from 'axios'
 
 const MainMenu = () => {
+    const publicIp = require('public-ip');
     const [weather, setWeather] = useState('');
     const [country, setCountry] = useState('');
     const [image, setImage] = useState('');
 
 
-    const getIpAddress = () => {
-        const publicIp = require('public-ip');
+    const getIpAddress = () => {       
         return publicIp.v4();
     }
 
@@ -31,7 +31,7 @@ const MainMenu = () => {
     return (
         <nav className="navbar navbar-dark bg-primary">
             <a className="navbar-brand">                      
-            <img src={Logo} width="30" height="30" class="d-inline-block align-top m-1" alt="logoTrello" loading="lazy"/>
+            <img src={Logo} width="30" height="30" className="d-inline-block align-top m-1" alt="logoTrello" loading="lazy"/>
                 TrelloClone                
             </a>
             <form className="form-inline">
