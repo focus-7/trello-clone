@@ -8,7 +8,7 @@ Clave: 123456
 Correo: usuario_trello@gmail.com
 Clave: 123456
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este proyecto se inicio con [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
 
