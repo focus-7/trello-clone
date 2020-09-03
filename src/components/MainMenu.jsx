@@ -29,8 +29,8 @@ const MainMenu = () => {
             <img src={Logo} width="30" height="30" className="d-inline-block align-top m-1" alt="logoTrello" loading="lazy"/>
                 TrelloClone                
             </a>
-            <form className="form-inline">
-                <h6 className="text-white">{country}, {weather}°C </h6>
+            <form className="form-inline animated fadeIn">
+                <h6>{country}, {weather}°C </h6>
                 <img src={image} alt={country} />
             </form>
         </nav>
